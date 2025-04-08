@@ -1,32 +1,78 @@
-[alias]
-# Collection of project wide clippy lints. This is done via an alias because
-# clippy doesn't currently allow for specifiying project-wide lints in a
-# configuration file. This is a similar workaround to the ones presented here:
-# <https://github.com/EmbarkStudios/rust-ecosystem/issues/59>
-xclippy = [
-    "clippy", "--all-targets", "--all-features", "--",
-    "-Wclippy::all",
-    "-Wclippy::disallowed_methods",
-    "-Aclippy::unnecessary_get_then_check",
-]
-xlint = "run --package x --bin x -- lint"
-xtest = "run --package x --bin x -- external-crates-tests"
+# IDE
+**/.history/
+**/.vscode/
+**/.idea/
 
-# Configuration specifically for running clippy on `external-crates/move/`.
-# Some of these allows are to avoid code churn; others are filed as issues on the `sui` repo now.
-move-clippy = [
-    "clippy",
-    "--all-targets",
-    "--",
-    "-Wclippy::all",
-    "-Wclippy::disallowed_methods",
-    "-Aclippy::upper_case_acronyms",
-    "-Aclippy::type_complexity",
-    "-Aclippy::new_without_default",
-    "-Aclippy::question_mark",
-    "-Aclippy::unnecessary_get_then_check",
-    "-Aclippy::needless_borrows_for_generic_args",
-]
+# OSX
+.DS_Store
 
-[build]
-rustflags = ["-C", "force-frame-pointers=yes", "-C", "force-unwind-tables=yes"]
+# Rust build directory
+**/target
+.pre-commit*
+
+# Move build directory
+build
+!crates/sui-single-node-benchmark/tests/data/package_publish_from_bytecode/package_a/build
+!crates/sui-single-node-benchmark/tests/data/package_publish_from_bytecode/package_b/build
+storage
+!consensus/core/src/storage
+!crates/sui-types/src/storage
+!narwhal/storage
+
+# Move-related files
+Move.lock
+!crates/sui-framework/packages/move-stdlib/Move.lock
+!crates/sui-framework/packages/sui-framework/Move.lock
+!crates/sui-framework/packages/sui-system/Move.lock
+!crates/sui-framework/packages/deepbook/Move.lock
+.trace
+.coverage_map.mvcov
+
+# Thumbnails
+._*
+
+# Emacs
+\#*\#
+.\#*
+
+# Python
+.pyc
+
+# Node.js
+node_modules
+.tsbuildinfo
+*.tsbuildinfo
+.turbo
+
+# App build directories
+dist/
+storybook-static/
+web-ext-artifacts/
+.next/
+next-env.d.ts
+
+# App test artifacts
+coverage/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# logs
+wallet.log.*
+sui.log.*
+.vercel
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# misc
+*.key
+.env
+checkpoints_dir/*
+light_client.yaml
+docs/content/references/sui-api/sui-graphql/*
+docs/content/references/framework/**
+
+lcov.info
+
+**/build/**
