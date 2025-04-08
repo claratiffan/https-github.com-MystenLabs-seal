@@ -1,4 +1,5 @@
-// Copyright (c), Mysten Labs, Inc.
+@@ -1,20 +1,18 @@
+ // Copyright (c), Mysten Labs, Inc.
  // SPDX-License-Identifier: Apache-2.0
  
  // Based on the subscription pattern.
@@ -46,7 +47,7 @@
      assert!(fee.value() == service.fee, EInvalidFee);
      transfer::public_transfer(fee, service.owner);
      Subscription {
- @@ -99,18 +102,7 @@
+ @@ -99,26 +102,15 @@
      };
  
      // Check if the id has the right prefix
@@ -66,3 +67,11 @@
  }
  
  entry fun seal_approve(id: vector<u8>, sub: &Subscription, service: &Service, c: &Clock) {
+     assert!(approve_internal(id, sub, service, c), ENoAccess);
+ }
+ 
+ /// Encapsulate a blob into a Sui object and attach it to the Subscription
+ public fun publish(service: &mut Service, cap: &Cap, blob_id: String) {
+     assert!(cap.service_id == object::id(service), EInvalidCap);
+     df::add(&mut service.id, blob_id, MARKER);
+ }
